@@ -1,6 +1,6 @@
 /* Select all the necessary Elements  */
 var input = document.querySelector('.todo_input');
-var MainTodoContainer = document.getElementById('todos')
+var MainTodoContainer = document.getElementById('list')
 var addingButton = document.querySelector('.add-item');
 var deleteAllBtn = document.querySelector('.deleteBtn');
 var completedButton = document.querySelector('.completed');
@@ -37,6 +37,7 @@ addingButton.addEventListener('click', function(e){
             editWorking(liTag);
 
         }
+        
         /* trash button element2 */
         var trashButton = document.createElement('button');
         trashButton.classList.add('trash');
@@ -62,7 +63,7 @@ addingButton.addEventListener('click', function(e){
             if(items.classList[0] === 'completed'){
                 var todo = items.parentElement;
                 var todo2 = todo.parentElement;
-                todo2.classList.add('line_through')
+                todo2.classList.toggle('line_through')
             }
             else if(items.classList[0] === 'trash'){
                 var todo = items.parentElement;
@@ -72,6 +73,14 @@ addingButton.addEventListener('click', function(e){
                     var todo3 = todo2.parentElement;
                     todo3.remove();
                 });
+            }if(todo2){
+                liTag.addEventListener("click", function( event ){
+                    event.target.innerHTML = ("Task already completed")
+                })
+            }if(todo2){
+                liTag.addEventListener("dblclick", function( event ){
+                    event.target.innerHTML = ("Edit to add new Task")
+                }) 
             }
         });
     }else if(input.value === ''){
@@ -79,9 +88,8 @@ addingButton.addEventListener('click', function(e){
     }
 });
 
-
 function editWorking(e){
-    var editValue = prompt('edit the select item', e.firstChild.nodeValue);
+    var editValue = prompt('Edit the select item', e.firstChild.nodeValue);
     e.firstChild.nodeValue = editValue;
 }
 function deleteAllElements(){
